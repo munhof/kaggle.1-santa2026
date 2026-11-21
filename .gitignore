@@ -228,3 +228,6 @@ __marimo__/
 !/reports/.gitkeep
 /*_results*.csv
 /submission.csv
+.codex
+.agents
+.aws

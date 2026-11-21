@@ -17,15 +17,17 @@ from elf_calculator.optimizers.elf_dag import optimize_dag
 STAGES = (postprocess, optimize_a4, nested_windows)
 
 
-def compare(puzzle, constructor):
+def compare(puzzle, constructor, *, export=False):
     try:
         initial = constructor(puzzle)
     except ConstructionError as exc:
-        return [(puzzle.id, constructor.__name__, 'failed', '', '', '', '', str(exc))]
+        rows = [(puzzle.id, constructor.__name__, 'failed', '', '', '', '', str(exc))]
+        return (rows, None) if export else rows
     control = [initial]
     for stage in STAGES:
         control.append(stage(puzzle, control[-1]))
     final = validate(puzzle, control[-1])['steps']
+    best = control[-1]
     rows = []
     for index, program in enumerate(control):
         candidate = optimize_dag(puzzle, program)
@@ -35,10 +37,12 @@ def compare(puzzle, constructor):
             for stage in STAGES[index:]:
                 candidate = stage(puzzle, candidate)
             score = validate(puzzle, candidate)['steps']
+            if score < len(best):
+                best = candidate
         label = ('constructor', 'postprocess', 'a4', 'nested')[index]
         rows.append((puzzle.id, constructor.__name__, label, len(program),
                      immediate, final, score, ''))
-    return rows
+    return (rows, best) if export else rows
 
 
 def summarize(out):
