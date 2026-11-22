@@ -106,7 +106,7 @@ def cross_recipes(bank,starts):
                 if v in bank and v not in (a,b): bank[v].add(r)
 
 
-def joint_graph(p,donors,cross):
+def joint_graph(p,donors,cross, *, seconds=30):
     from ortools.sat.python import cp_model
     bank=defaultdict(set)
     for donor in donors:
@@ -132,7 +132,7 @@ def joint_graph(p,donors,cross):
     solver=cp_model.CpSolver()
     solver.parameters.num_search_workers=1
     solver.parameters.random_seed=42
-    solver.parameters.max_time_in_seconds=30
+    solver.parameters.max_time_in_seconds=seconds
     status=solver.solve(model)
     graph=None
     if status in (cp_model.FEASIBLE,cp_model.OPTIMAL):

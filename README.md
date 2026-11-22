@@ -5,7 +5,26 @@ La puntuación es la suma de instrucciones de todos los puzzles. Cada programa
 se valida reproduciendo sus operaciones y comprobando registros, división
 exacta, positividad, límites y cobertura de objetivos.
 
-## Resultados locales
+## Objetivo actual: mejorar la cartera pública
+
+Cada experimento sobre los 1.000 puzzles puntuables parte del programa público
+válido más corto disponible para cada ID. La referencia local validada suma
+**130.922 instrucciones**. Corresponde a [GoodPJW v169](https://www.kaggle.com/datasets/goodpjw2008/santa-2026-dag-lns-programs/versions/169).
+[Avazaku v30](https://www.kaggle.com/code/avazaku/elf-calc-backward-frontier-rewrite?scriptVersionId=372752967)
+suma 130.943 y aporta recetas alternativas.
+
+Para medir el aporte propio, se fija la versión de cada fuente, se valida la
+cartera pública inicial y se cuentan los pasos que el optimizador ahorra
+frente a esa base en cada ID. Si aparece una nueva fuente pública, se registra
+primero cuánto aporta al combinarla. El diario muestra después el ahorro
+propio, los IDs mejorados y el total validado de los 1.000 programas.
+
+La búsqueda conjunta de auxiliares, la reparación, el pulido y el cruce
+CP-SAT entre ambas fuentes mantuvieron los **130.922 pasos**. El ahorro propio
+medido sobre esa referencia es **0**. Los experimentos sobre programas propios
+sirven como diagnóstico. [Diario de experimentos](diarios%20de%20avances%20de%20exploracion.ipynb)
+
+## Resultados históricos de los constructores iniciales
 
 | Etapa | Práctica (200/200) | Puntuables (1000/1000) |
 |---|---:|---:|
@@ -15,8 +34,8 @@ exacta, positividad, límites y cobertura de objetivos.
 | + A4 | 152.035 | 727.166 |
 | + Ventanas de ventanas | **151.598** | **724.927** |
 
-La referencia de los 1000 puzzles suma 1.490.379 instrucciones. La mejor
-corrida validada localmente redujo ese total un 51,36 %.
+La referencia de los 1000 puzzles suma 1.490.379 instrucciones. La última
+etapa de esta tabla redujo ese total un 51,36 %.
 
 ## Métodos
 
